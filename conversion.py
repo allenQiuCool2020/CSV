@@ -13,6 +13,8 @@ dataframe1["VIA_B2B_CustomerCodeSoldTo__c"] = dataframe1["VIA_B2B_CustomerCodeSo
 dataframe1["VIA_B2B_BillNumber__c"] = dataframe1["VIA_B2B_BillNumber__c"].astype(str).apply(lambda x:x.zfill(10))
 print(dataframe1)
 
+del dataframe1["Curr."]
+
 # exporting to CSV file
 dataframe1.to_csv("test522a1.csv", index=False)
 
