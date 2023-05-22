@@ -9,6 +9,6 @@ dataframe1.rename(columns=({'Bill.Doc.':'VIA_B2B_BillNumber__c','BillT':'VIA_B2B
 
 
 print(dataframe1)
-dataframe1.to_excel("test522a1.xlsx", index=False)
-
+# dataframe1.to_excel("test522a1.xlsx", index=False)
+dataframe1.to_csv("test522a1.csv", index=False)
 # read_file.to_csv("billing_320942.csv", index=False)
