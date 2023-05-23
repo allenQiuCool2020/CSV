@@ -2,7 +2,7 @@ import pandas as pd
 import shutil
 
 import os
-path = "C:\Dev\CSV\input"
+path = "C:\\Dev\\CSV\\input"
 lists = []
 for (root, dirs, file) in os.walk(path):
     for f in file:
@@ -19,7 +19,7 @@ def exceltocsv(f1, *args, **kwargs):
     
     # Read the file and converting it to dataframe
     # dataframe1 = pd.read_excel("315103.xlsx")
-    dataframe1 = pd.read_excel(f"C:\Dev\CSV\input\{f1}")
+    dataframe1 = pd.read_excel(f"C:\\Dev\\CSV\\input\\{f1}")
 
     # Delete last row
     dataframe1.drop(dataframe1.tail(1).index, inplace=True)
@@ -43,10 +43,10 @@ def exceltocsv(f1, *args, **kwargs):
     print(listcsv)
     
     # Exporting to CSV file
-    dataframe1.to_csv(f"C:\Dev\CSV\output\{listcsv}", index=False)
+    dataframe1.to_csv(f"C:\\Dev\\CSV\\output\\{listcsv}", index=False)
 
     # Moving input file to archive folder after processing
-    processed_file = f"C:\Dev\CSV\input\{f1}"
+    processed_file = f"C:\\Dev\\CSV\\input\\{f1}"
     destination = 'C:\\Dev\\CSV\\archive'
     shutil.move(processed_file,destination)
 
