@@ -13,15 +13,15 @@ for (root, dirs, file) in os.walk(path):
 
 print(lists)
 for list in lists:
-    list1 = f'"{list}"'
-    print(list1)
+    # list1 = f'"{list}"'
+    # print(list1)
     print(list)
 
 def exceltocsv(f1, *args, **kwargs):
     # Read the file and converting it to dataframe
     # dataframe1 = pd.read_excel("315103.xlsx")
 
-    dataframe1 = pd.read_excel(f1)
+    dataframe1 = pd.read_excel(f"C:\Dev\CSV\input\{f1}")
     # Count rows
     # count_rows = len(dataframe1.index)
     # print(count_rows)
@@ -43,9 +43,14 @@ def exceltocsv(f1, *args, **kwargs):
     # Delete currency column
     del dataframe1["Curr."]
 
+    # Prepare for generating output file name
+    listcsv = list.replace("XLSX", "csv")
+    print(listcsv)
+    
     # Exporting to CSV file
-    dataframe1.to_csv("test11.csv", index=False)
+    dataframe1.to_csv(f"C:\Dev\CSV\output\{listcsv}", index=False)
 
-exceltocsv(list1)
+for list in lists:
+    exceltocsv(list)
 
 
