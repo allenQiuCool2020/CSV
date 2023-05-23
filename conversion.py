@@ -1,4 +1,5 @@
 import pandas as pd
+import shutil
 
 import os
 path = "C:\Dev\CSV\input"
@@ -49,6 +50,11 @@ def exceltocsv(f1, *args, **kwargs):
     
     # Exporting to CSV file
     dataframe1.to_csv(f"C:\Dev\CSV\output\{listcsv}", index=False)
+
+    # Moving input file to archive folder after processing
+    processed_file = f"C:\Dev\CSV\input\{f1}"
+    destination = 'C:\\Dev\\CSV\\archive'
+    shutil.move(processed_file,destination)
 
 for list in lists:
     exceltocsv(list)
