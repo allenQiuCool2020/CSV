@@ -44,11 +44,17 @@ def exceltocsv(f1, *args, **kwargs):
     listcsv = list.replace("XLSX", "csv")
     print(listcsv)
 
+    # Left join 2 tables
     payment_dataframe = pd.read_excel('payment_terms.XLSX')
     df_merged = pd.merge(dataframe1, payment_dataframe, on='terms', how='left')
 
+    # Update description of 2 fields
     df_merged.rename(columns=({'terms':'VIA_B2B_PaymentTermCode__c', 'description':'VIA_B2B_PaymentTerm__c'}), inplace=True)
 
+    # Sort sequence of columns
+    df_merged = df_merged.loc[:,['VIA_B2B_BillNumber__c', 'VIA_B2B_Type__c', 'EPD_Invoice_Date__c', 'VIA_B2B_PaymentTermCode__c',
+                     'VIA_B2B_PaymentTerm__c', 'VIA_B2B_CountryCode__c', 'VIA_B2B_TotalBillAmount__c', 'VIA_B2B_CustomerCodeSoldTo__c' ]]
+    
     # Exporting to CSV file
     df_merged.to_csv(f"C:\\Dev\\CSV\\output\\{listcsv}", index=False)
 
