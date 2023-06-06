@@ -25,7 +25,7 @@ def exceltocsv(f1, *args, **kwargs):
     dataframe1.drop(dataframe1.tail(1).index, inplace=True)
 
     # Updating the description of the first row of columns
-    dataframe1.rename(columns=({'Bill.Doc.':'VIA_B2B_BillNumber__c','BillT':'VIA_B2B_Type__c','Billing Date':'EPD_Invoice_Date__c','PayT':'VIA_B2B_PaymentTermCode__c','DstC':'VIA_B2B_CountryCode__c', 'Net Value':'VIA_B2B_TotalBillAmount__c','Sold-to pt':'VIA_B2B_CustomerCodeSoldTo__c'}), inplace=True)
+    dataframe1.rename(columns=({'Bill.Doc.':'VIA_B2B_BillNumber__c','BillT':'VIA_B2B_Type__c','Billing Date':'EPD_Invoice_Date__c','PayT':'terms','DstC':'VIA_B2B_CountryCode__c', 'Net Value':'VIA_B2B_TotalBillAmount__c','Sold-to pt':'VIA_B2B_CustomerCodeSoldTo__c'}), inplace=True)
 
     # Converting below two columns to integer
     dataframe1["VIA_B2B_BillNumber__c"] = dataframe1["VIA_B2B_BillNumber__c"].astype(int)
@@ -38,12 +38,19 @@ def exceltocsv(f1, *args, **kwargs):
     # Delete currency column
     del dataframe1["Curr."]
 
+    
+
     # Prepare for generating output file name
     listcsv = list.replace("XLSX", "csv")
     print(listcsv)
-    
+
+    payment_dataframe = pd.read_excel('payment_terms.XLSX')
+    df_merged = pd.merge(dataframe1, payment_dataframe, on='terms', how='left')
+
+    df_merged.rename(columns=({'terms':'VIA_B2B_PaymentTermCode__c', 'description':'VIA_B2B_PaymentTerm__c'}), inplace=True)
+
     # Exporting to CSV file
-    dataframe1.to_csv(f"C:\\Dev\\CSV\\output\\{listcsv}", index=False)
+    df_merged.to_csv(f"C:\\Dev\\CSV\\output\\{listcsv}", index=False)
 
     # Moving input file to archive folder after processing
     processed_file = f"C:\\Dev\\CSV\\input\\{f1}"
