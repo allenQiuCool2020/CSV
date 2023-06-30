@@ -51,9 +51,14 @@ def exceltocsv(f1, *args, **kwargs):
     # Update description of 2 fields
     df_merged.rename(columns=({'terms':'VIA_B2B_PaymentTermCode__c', 'description':'VIA_B2B_PaymentTerm__c'}), inplace=True)
 
+    # find duplicated records
+    df_merged['duplicated1'] = df_merged.duplicated()
+
+
     # Sort sequence of columns
     df_merged = df_merged.loc[:,['VIA_B2B_BillNumber__c', 'VIA_B2B_Type__c', 'EPD_Invoice_Date__c', 'VIA_B2B_PaymentTermCode__c',
-                     'VIA_B2B_PaymentTerm__c', 'VIA_B2B_CountryCode__c', 'VIA_B2B_TotalBillAmount__c', 'VIA_B2B_CustomerCodeSoldTo__c' ]]
+                     'VIA_B2B_PaymentTerm__c', 'VIA_B2B_CountryCode__c', 'VIA_B2B_TotalBillAmount__c', 'VIA_B2B_CustomerCodeSoldTo__c', 'duplicated1']]
+
     
     # Exporting to CSV file
     df_merged.to_csv(f"C:\\Dev\\CSV\\output\\{listcsv}", index=False)
